@@ -687,10 +687,10 @@ export class CDPService extends EventEmitter {
                 browsers: [{ name: "chrome", minVersion: 146 }],
                 locales: ["en-US", "en"],
                 screen: {
-                  minWidth: this.launchConfig!.dimensions?.width ?? 1920,
-                  minHeight: this.launchConfig!.dimensions?.height ?? 1080,
-                  maxWidth: this.launchConfig!.dimensions?.width ?? 1920,
-                  maxHeight: this.launchConfig!.dimensions?.height ?? 1080,
+                  minWidth: 1280,
+                  minHeight: 720,
+                  maxWidth: 1920,
+                  maxHeight: 1080,
                 },
               };
 
