@@ -686,12 +686,6 @@ export class CDPService extends EventEmitter {
                 operatingSystems: ["linux"],
                 browsers: [{ name: "chrome", minVersion: 146 }],
                 locales: ["en-US", "en"],
-                screen: {
-                  minWidth: 1280,
-                  minHeight: 720,
-                  maxWidth: 1920,
-                  maxHeight: 1080,
-                },
               };
 
               if (this.launchConfig!.deviceConfig?.device === "mobile") {
