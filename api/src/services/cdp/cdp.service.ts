@@ -1108,6 +1108,12 @@ export class CDPService extends EventEmitter {
       head,
       {
         target: this.wsEndpoint,
+        // PATCH (PalmettoAI fork): proxy straight to the browser CDP endpoint
+        // regardless of the path the client connected on. Without this, a
+        // client connecting at "/" (e.g. Playwright connectOverCDP to the
+        // session websocketUrl) gets the incoming path appended to the target
+        // and Chrome rejects the upgrade.
+        ignorePath: true,
       },
       (error) => {
         if (error) {
