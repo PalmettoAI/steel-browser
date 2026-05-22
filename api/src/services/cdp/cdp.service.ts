@@ -1114,6 +1114,12 @@ export class CDPService extends EventEmitter {
         // session websocketUrl) gets the incoming path appended to the target
         // and Chrome rejects the upgrade.
         ignorePath: true,
+        // PATCH (PalmettoAI fork): rewrite the Host header to the Chrome CDP
+        // target. Chrome's DevTools endpoint rejects connections whose Host
+        // isn't localhost/an IP (DNS-rebinding protection), so without this a
+        // client reaching Steel via a public domain or *.railway.internal
+        // gets the upgrade refused (500).
+        changeOrigin: true,
       },
       (error) => {
         if (error) {
