@@ -508,7 +508,21 @@
           let activeTabId = null;
 
           // WebSocket connection management
-          const baseWsUrl = '<%= wsUrl %>';
+          // PATCH (PalmettoAI fork): the server renders wsUrl with a hard-coded
+          // 0.0.0.0:3000 host, which breaks when Steel is served behind HTTPS /
+          // a reverse proxy. Keep the server-provided PATH (it carries the
+          // session id) but swap in the browser's actual origin.
+          const baseWsUrl = (function () {
+            const rendered = '<%= wsUrl %>';
+            try {
+              const u = new URL(rendered);
+              u.protocol = location.protocol === 'https:' ? 'wss:' : 'ws:';
+              u.host = location.host;
+              return u.toString();
+            } catch (e) {
+              return rendered;
+            }
+          })();
           let tabDiscoveryWebSocket = null; // WebSocket for discovering tabs (multi-page mode)
           let activeConnectionRetries = {}; // Track reconnection attempts
 
